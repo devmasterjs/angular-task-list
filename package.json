@@ -1,0 +1,14 @@
+{
+  "name": "task-list",
+  "version": "1.0.0",
+  "description": "Task List Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marlo Eichenberg Motta <devmaster@programmerhero.com.br> (https://programmerhero.com.br/)",
+  "license": "MIT",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.0.0"
+  }
+}
