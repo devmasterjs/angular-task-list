@@ -23,6 +23,8 @@
     "@briebug/jest-schematic": "^3.1.0",
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.0.0-rc.1",
     "rxjs": "~6.6.0",
     "toastr": "^2.1.4",
     "tslib": "^2.0.0",
