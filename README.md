@@ -1,4 +1,6 @@
-# Frontend
+# TASKLIST
+
+This is a project that aims to demonstrate the functioning of a CRUD Master / Detail using Angular.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
 
