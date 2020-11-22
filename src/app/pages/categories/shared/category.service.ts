@@ -18,7 +18,14 @@ export class CategoryService {
       .pipe(catchError(this.handleError), map(this.jsonDataToCategories));
   }
 
-  public handleError(error: any): Observable<any> {
+  public getById(id: number): Observable<Category> {
+    const url = `${this.apiPath}/${id}`;
+    return this.http
+      .get(url)
+      .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
+  }
+
+  private handleError(error: any): Observable<any> {
     //console.log('ERRO NA REQUISIÇÃO =>', error);
     return throwError(error);
   }
@@ -29,5 +36,9 @@ export class CategoryService {
       categories.push(item as Category);
     });
     return categories;
+  }
+
+  private jsonDataToCategory(jsonData: any): Category {
+    return jsonData as Category;
   }
 }
