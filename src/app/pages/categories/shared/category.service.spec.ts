@@ -53,6 +53,7 @@ describe('CategoryService', () => {
     ];
     service.getAll().subscribe((list) => (categories = list));
     const req = httpMock.expectOne('http://localhost:3000/lists');
+    expect(req.request.method).toBe('GET');
     req.flush(mockCategories);
     httpMock.verify();
     expect(categories.length).toEqual(2);
@@ -77,6 +78,7 @@ describe('CategoryService', () => {
       }
     );
     const testRequest = httpMock.expectOne('http://localhost:3000/lists');
+    expect(testRequest.request.method).toBe('GET');
     testRequest.flush(injectMockError.message, injectMockError.error);
     httpMock.verify();
     expect(service['handleError']).toHaveBeenCalledTimes(1);
@@ -89,6 +91,7 @@ describe('CategoryService', () => {
     service.getById(1).subscribe((result) => (category = result));
 
     const req = httpMock.expectOne('http://localhost:3000/lists/1');
+    expect(req.request.method).toBe('GET');
     req.flush(mockCategory);
     httpMock.verify();
 
@@ -112,6 +115,7 @@ describe('CategoryService', () => {
       }
     );
     const testRequest = httpMock.expectOne('http://localhost:3000/lists/1');
+    expect(testRequest.request.method).toBe('GET');
     testRequest.flush(injectMockError.message, injectMockError.error);
     httpMock.verify();
     expect(service['handleError']).toHaveBeenCalledTimes(1);
@@ -149,6 +153,7 @@ describe('CategoryService', () => {
       }
     );
     const testRequest = httpMock.expectOne('http://localhost:3000/lists');
+    expect(testRequest.request.method).toBe('POST');
     testRequest.flush(injectMockError.message, injectMockError.error);
     httpMock.verify();
     expect(service['handleError']).toHaveBeenCalledTimes(1);
@@ -186,6 +191,7 @@ describe('CategoryService', () => {
       }
     );
     const testRequest = httpMock.expectOne('http://localhost:3000/lists/3');
+    expect(testRequest.request.method).toBe('PUT');
     testRequest.flush(injectMockError.message, injectMockError.error);
     httpMock.verify();
     expect(service['handleError']).toHaveBeenCalledTimes(1);
