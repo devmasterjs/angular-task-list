@@ -8,12 +8,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CategoryService } from './category.service';
 import { Category } from './category.model';
 
-// const mockCategories = JSON.stringify([
-//   new Category(1, 'Mercado'),
-//   new Category(2, 'Trabalho'),
-//   new Category(3),
-// ]);
-
 const mockCategories = [
   {
     id: 1,
@@ -66,16 +60,6 @@ describe('CategoryService', () => {
     req.flush(mockCategories);
     httpMock.verify();
   });
-
-  // it('getAll: should return error', () => {
-  //   service.getAll().subscribe((categories) => {
-  //     expect(categories).toBeInstanceOf(Category);
-  //     expect(categories.length).toBe(3);
-  //   });
-  //   const req = httpMock.expectOne('http://localhost:3000/lists');
-  //   req.flush(mockCategories);
-  //   httpMock.verify();
-  // });
 
   it('getAll: should call handleError(error) and return HttpErrorResponse with status=404', () => {
     const injectError = {
