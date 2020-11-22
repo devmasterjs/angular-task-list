@@ -25,6 +25,12 @@ export class CategoryService {
       .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
   }
 
+  public create(category: Category): Observable<Category> {
+    return this.http
+      .post(this.apiPath, category)
+      .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
+  }
+
   private handleError(error: any): Observable<any> {
     //console.log('ERRO NA REQUISIÇÃO =>', error);
     return throwError(error);

@@ -116,4 +116,41 @@ describe('CategoryService', () => {
     httpMock.verify();
     expect(service['handleError']).toHaveBeenCalledTimes(1);
   });
+
+  it('create: should create a category {id:3 title: "Pescaria"}', () => {
+    const mockCategory = new Category(3, 'Pescaria');
+    let category = new Category();
+
+    service.create(mockCategory).subscribe((result) => (category = result));
+
+    const req = httpMock.expectOne('http://localhost:3000/lists');
+    expect(req.request.method).toBe('POST');
+    req.flush(mockCategory);
+    httpMock.verify();
+
+    expect(category).toBeInstanceOf(Category);
+    expect(category.id).toBe(3);
+    expect(category.title).toBe('Pescaria');
+  });
+
+  it('create: should call handleError(error) and return HttpErrorResponse with status=404', () => {
+    const mockCategory = new Category(3, 'Pescaria');
+    const injectMockError = {
+      message: 'Invalid request parameters',
+      error: { status: 404, statusText: 'Bad Request' },
+    };
+
+    spyOn<any>(service, 'handleError').and.callThrough();
+    service.create(mockCategory).subscribe(
+      () => {},
+      (e) => {
+        expect(e).toBeInstanceOf(HttpErrorResponse);
+        expect(e.status).toEqual(404);
+      }
+    );
+    const testRequest = httpMock.expectOne('http://localhost:3000/lists');
+    testRequest.flush(injectMockError.message, injectMockError.error);
+    httpMock.verify();
+    expect(service['handleError']).toHaveBeenCalledTimes(1);
+  });
 });
