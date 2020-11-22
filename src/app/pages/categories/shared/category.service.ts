@@ -31,6 +31,13 @@ export class CategoryService {
       .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
   }
 
+  public update(category: Category): Observable<Category> {
+    const url = `${this.apiPath}/${category.id}`;
+    return this.http
+      .put(url, category)
+      .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
+  }
+
   private handleError(error: any): Observable<any> {
     //console.log('ERRO NA REQUISIÇÃO =>', error);
     return throwError(error);
