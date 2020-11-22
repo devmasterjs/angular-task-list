@@ -38,6 +38,14 @@ export class CategoryService {
       .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
   }
 
+  public delete(id: number): Observable<any> {
+    const url = `${this.apiPath}/${id}`;
+    return this.http.delete(url).pipe(
+      catchError(this.handleError),
+      map(() => null)
+    );
+  }
+
   private handleError(error: any): Observable<any> {
     //console.log('ERRO NA REQUISIÇÃO =>', error);
     return throwError(error);

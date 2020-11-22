@@ -196,4 +196,38 @@ describe('CategoryService', () => {
     httpMock.verify();
     expect(service['handleError']).toHaveBeenCalledTimes(1);
   });
+
+  it('delete: should delte a category {id:3 title: "Acampamento"}', () => {
+    const mockCategoryId = 3;
+    const mockCategory = new Category(mockCategoryId, 'Acampamento');
+    let category = new Category();
+    service.delete(mockCategoryId).subscribe((result) => (category = result));
+    const req = httpMock.expectOne('http://localhost:3000/lists/3');
+    expect(req.request.method).toBe('DELETE');
+    req.flush(mockCategory);
+    httpMock.verify();
+    expect(category).toBeNull;
+  });
+
+  it('delete: should call handleError(error) and return HttpErrorResponse with status=404', () => {
+    const mockCategoryId = 3;
+    const injectMockError = {
+      message: 'Invalid request parameters',
+      error: { status: 404, statusText: 'Bad Request' },
+    };
+
+    spyOn<any>(service, 'handleError').and.callThrough();
+    service.delete(mockCategoryId).subscribe(
+      () => {},
+      (e) => {
+        expect(e).toBeInstanceOf(HttpErrorResponse);
+        expect(e.status).toEqual(404);
+      }
+    );
+    const testRequest = httpMock.expectOne('http://localhost:3000/lists/3');
+    expect(testRequest.request.method).toBe('DELETE');
+    testRequest.flush(injectMockError.message, injectMockError.error);
+    httpMock.verify();
+    expect(service['handleError']).toHaveBeenCalledTimes(1);
+  });
 });
