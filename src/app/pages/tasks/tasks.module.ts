@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { TasksRoutingModule } from './tasks-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskListComponent } from './task-list/task-list.component';
-import { CategoryService } from '../categories/shared/category.service';
+import { TaskFormComponent } from './task-form/task-form.component';
 
 @NgModule({
-  declarations: [TaskListComponent],
+  declarations: [TaskListComponent, TaskFormComponent],
   imports: [CommonModule, TasksRoutingModule, ReactiveFormsModule],
 })
 export class TasksModule {}

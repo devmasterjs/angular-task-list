@@ -1,0 +1,92 @@
+<nav class="mb-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a routerLink="/">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a routerLink="/tasks">Tarefas</a>
+    </li>
+    <li class="breadcrumb-item active">{{ pageTitle }}</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">{{ pageTitle }}</h1>
+  </div>
+  <div class="col-md">
+    <a routerLink="/tasks" class="btn btn-light float-right"><< Voltar</a>
+  </div>
+</div>
+
+<form [formGroup]="taskForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">Informações sobre a Tarefa</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="title">Descrição</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            formControlName="title"
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              taskForm.get('title')['invalid'] &&
+              taskForm.get('title')['touched']
+            "
+          >
+            <div *ngIf="taskForm.get('title')['errors'].required">
+              Informação obrigatória!
+            </div>
+            <div *ngIf="taskForm.get('title')['errors'].minlength">
+              Deve ter no mínimo 02 carateres!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-12">
+          <label for="title">Categoria</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            formControlName="title"
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              taskForm.get('title')['invalid'] &&
+              taskForm.get('title')['touched']
+            "
+          >
+            <div *ngIf="taskForm.get('title')['errors'].required">
+              Informação obrigatória!
+            </div>
+            <div *ngIf="taskForm.get('title')['errors'].minlength">
+              Deve ter no mínimo 02 carateres!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-danger mt-5" *ngIf="serverErrorMessages.length > 0">
+    <strong>Erro no Servidor:</strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{ error }}</li>
+    </ul>
+  </div>
+
+  <button
+    [disabled]="isSubmittingForm || taskForm.invalid"
+    type="submit"
+    class="btn btn-primary btn-lg float-right mt-3"
+  >
+    Salvar
+  </button>
+</form>
