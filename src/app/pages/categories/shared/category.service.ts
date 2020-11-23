@@ -33,12 +33,9 @@ export class CategoryService {
 
   public update(category: Category): Observable<Category> {
     const url = `${this.apiPath}/${category.id}`;
-    return (
-      this.http
-        .put(url, category)
-        //      .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
-        .pipe(catchError(this.handleError), map(this.jsonDataToCategory))
-    );
+    return this.http
+      .put(url, category)
+      .pipe(catchError(this.handleError), map(this.jsonDataToCategory));
   }
 
   public delete(id: number): Observable<any> {

@@ -51,6 +51,13 @@
     </div>
   </div>
 
+  <div class="alert alert-danger mt-5" *ngIf="serverErrorMessages.length > 0">
+    <strong>Erro no Servidor:</strong>
+    <ul>
+      <li *ngFor="let error of serverErrorMessages">{{ error }}</li>
+    </ul>
+  </div>
+
   <button
     [disabled]="isSubmittingForm || categoryForm.invalid"
     type="submit"
