@@ -11,13 +11,13 @@ describe('Task Model', () => {
 
   it('Task: should be id=1 categoryId=1 and title="Comprar Feijão"', () => {
     expect(taskSellBeen.id).toBe(1);
-    expect(taskSellBeen.categoryId).toBe(1);
+    expect(taskSellBeen.listId).toBe(1);
     expect(taskSellBeen.title).toBe('Comprar Feijão');
   });
 
   it('Task: should be id=1 categoryId=2 and title="Nova Tarefa"', () => {
     expect(taskNewTask.id).toBe(1);
-    expect(taskNewTask.categoryId).toBe(2);
+    expect(taskNewTask.listId).toBe(2);
     expect(taskNewTask.title).toBe('Nova Tarefa');
   });
 });

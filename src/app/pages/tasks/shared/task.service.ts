@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError, mergeMap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Task } from './task.model';
+import { CategoryService } from '../../categories/shared/category.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +11,14 @@ import { Task } from './task.model';
 export class TaskService {
   private apiPath = 'http://localhost:3000/tasks';
 
+  private categoryService: CategoryService;
+
   constructor(private http: HttpClient) {}
 
   public getAll(): Observable<Task[]> {
     return this.http
       .get(this.apiPath)
-      .pipe(catchError(this.handleError), map(this.jsonDataToCategories));
+      .pipe(catchError(this.handleError), map(this.jsonDataToTasks));
   }
 
   public getById(id: number): Observable<Task> {
@@ -51,15 +54,16 @@ export class TaskService {
     return throwError(error);
   }
 
-  private jsonDataToCategories(jsonData: any[]): Task[] {
-    const categories: Task[] = [];
+  private jsonDataToTasks(jsonData: any[]): Task[] {
+    const tasks: Task[] = [];
     jsonData.forEach((item) => {
-      categories.push(item as Task);
+      const task = Object.assign(new Task(), item);
+      tasks.push(task);
     });
-    return categories;
+    return tasks;
   }
 
   private jsonDataToTask(jsonData: any): Task {
-    return jsonData as Task;
+    return Object.assign(new Task(), jsonData);
   }
 }

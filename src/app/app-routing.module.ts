@@ -9,6 +9,11 @@ const routes: Routes = [
         (module) => module.CategoriesModule
       ),
   },
+  {
+    path: 'tasks',
+    loadChildren: () =>
+      import('./pages/tasks/tasks.module').then((module) => module.TasksModule),
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

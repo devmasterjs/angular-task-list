@@ -84,7 +84,7 @@ describe('TaskService', () => {
     expect(service['handleError']).toHaveBeenCalledTimes(1);
   });
 
-  it('getById: should return task {id:1, categoryId:1, title: "Comprar Feijão"}', () => {
+  it('getById: should return task {id:1, listId:1, title: "Comprar Feijão"}', () => {
     const mockCategory = new Task(1, 1, 'Comprar Feijão');
     let task = new Task();
 
@@ -97,7 +97,7 @@ describe('TaskService', () => {
 
     expect(task).toBeInstanceOf(Task);
     expect(task.id).toBe(1);
-    expect(task.categoryId).toBe(1);
+    expect(task.listId).toBe(1);
     expect(task.title).toBe('Comprar Feijão');
   });
 
@@ -122,7 +122,7 @@ describe('TaskService', () => {
     expect(service['handleError']).toHaveBeenCalledTimes(1);
   });
 
-  it('create: should create a task {id:3, categoryId: 1, title: "Comprar Arroz"}', () => {
+  it('create: should create a task {id:3, listId: 1, title: "Comprar Arroz"}', () => {
     const mockCategory = new Task(3, 1, 'Comprar Arroz');
     let task = new Task();
 
@@ -135,7 +135,7 @@ describe('TaskService', () => {
 
     expect(task).toBeInstanceOf(Task);
     expect(task.id).toBe(3);
-    expect(task.categoryId).toBe(1);
+    expect(task.listId).toBe(1);
     expect(task.title).toBe('Comprar Arroz');
   });
 
@@ -161,7 +161,7 @@ describe('TaskService', () => {
     expect(service['handleError']).toHaveBeenCalledTimes(1);
   });
 
-  it('update: should update a task {id:3, categoryId:1 title: "Comprar Arroz"}', () => {
+  it('update: should update a task {id:3, listId:1 title: "Comprar Arroz"}', () => {
     const mockCategory = new Task(3, 1, 'Comprar Arroz');
     let task = new Task();
 
@@ -174,7 +174,7 @@ describe('TaskService', () => {
 
     expect(task).toBeInstanceOf(Task);
     expect(task.id).toBe(3);
-    expect(task.categoryId).toBe(1);
+    expect(task.listId).toBe(1);
     expect(task.title).toBe('Comprar Arroz');
   });
 
@@ -200,7 +200,7 @@ describe('TaskService', () => {
     expect(service['handleError']).toHaveBeenCalledTimes(1);
   });
 
-  it('delete: should delte a task {id:3, categoryId:1 title: "Comprar Arroz"}', () => {
+  it('delete: should delte a task {id:3, listId:1 title: "Comprar Arroz"}', () => {
     const mockCategoryId = 3;
     const mockCategory = new Task(mockCategoryId, 1, 'Comprar Arroz');
     let task = new Task();

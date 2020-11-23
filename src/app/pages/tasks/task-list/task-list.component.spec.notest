@@ -1,0 +1,155 @@
+import { HttpClientModule } from '@angular/common/http';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { Task } from '../shared/task.model';
+import { TaskService } from '../shared/task.service';
+import { TaskListComponent } from './task-list.component';
+
+describe('TaskListComponent', () => {
+  let component: TaskListComponent;
+  let fixture: ComponentFixture<TaskListComponent>;
+  let taskService: TaskService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HttpClientModule, RouterTestingModule],
+      declarations: [TaskListComponent],
+      providers: [TaskService],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TaskListComponent);
+    component = fixture.componentInstance;
+    component.tasks = [
+      {
+        id: 1,
+        listId: 1,
+        title: 'Comprar arroz',
+      },
+      {
+        id: 2,
+        listId: 1,
+        title: 'Comprar feijão',
+      },
+      {
+        id: 3,
+        listId: 2,
+        title: 'Reunião às 10:00',
+      },
+    ];
+    taskService = TestBed.inject(TaskService);
+  });
+
+  it('TaskListComponent: should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  // it(`TaskListComponent: should have a breadcrumb-item link 'Home'`, () => {
+  //   fixture = TestBed.createComponent(TaskListComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.querySelector('.breadcrumb-item a').textContent).toContain(
+  //     'Home'
+  //   );
+  // });
+
+  // it(`TaskListComponent: should have a breadcrumb-item 'Categorias'`, () => {
+  //   fixture = TestBed.createComponent(TaskListComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(
+  //     compiled.querySelector('.breadcrumb-item:nth-child(2)').textContent
+  //   ).toContain('Categorias');
+  // });
+
+  // it(`TaskListComponent: should render task title as 'Categorias'`, () => {
+  //   fixture = TestBed.createComponent(TaskListComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.querySelector('div > div > h1.h2').textContent).toContain(
+  //     'Categorias'
+  //   );
+  // });
+
+  // it(`TaskListComponent: should have a table head column 'Categoria'`, () => {
+  //   fixture = TestBed.createComponent(TaskListComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.querySelector('th:nth-child(1)').textContent).toContain(
+  //     'Categoria'
+  //   );
+  // });
+
+  // it(`TaskListComponent: should have a table head column 'Ações'`, () => {
+  //   fixture = TestBed.createComponent(TaskListComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.querySelector('th:nth-child(2)').textContent).toContain(
+  //     'Ações'
+  //   );
+  // });
+
+  // it(`TaskListComponent: should have a table with tbody`, () => {
+  //   fixture = TestBed.createComponent(TaskListComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.querySelector('table tbody')).toBeTruthy();
+  // });
+
+  it('TaskListComponent: On init getAll() should be loaded', fakeAsync(() => {
+    const task = new Task(1, 1, 'Comprar arroz');
+    spyOn(taskService, 'getAll').and.returnValue(of([task]).pipe(delay(1)));
+    fixture.detectChanges();
+    expect(component.tasks).toBeTruthy();
+    expect(taskService.getAll).toHaveBeenCalledWith();
+    tick(1);
+    expect(component.tasks.length).toBe(1);
+    expect(component.tasks[0].id).toBe(task.id);
+    expect(component.tasks[0].listId).toBe(task.listId);
+    expect(component.tasks[0].title).toBe(task.title);
+  }));
+
+  it('TaskListComponent: On init getAll() should be loaded with error', fakeAsync(() => {
+    spyOn(taskService, 'getAll').and.returnValue(throwError({ status: 404 }));
+    fixture.detectChanges();
+    tick(1);
+    expect(component.tasks).toBeTruthy();
+    expect(taskService.getAll).toHaveBeenCalledWith();
+  }));
+
+  it(`TaskListComponent: should have delete a Task`, fakeAsync(() => {
+    const task = new Task(2, 1, 'Comprar feijão');
+    const jsdomConfirm = window.confirm;
+    window.confirm = () => {
+      return true;
+    };
+    spyOn(taskService, 'delete').and.returnValue(of(task.id).pipe(delay(1)));
+    component.deleteTask(task);
+    tick(1);
+    expect(component.tasks).toBeTruthy();
+    expect(taskService.delete).toHaveBeenCalled();
+    expect(component.deleteTask).toHaveBeenCalled;
+    window.confirm = jsdomConfirm;
+  }));
+
+  it(`TaskListComponent: should have not delete a Task`, fakeAsync(() => {
+    const task = new Task(2, 1, 'Comprar feijão');
+    const jsdomConfirm = window.confirm;
+    window.confirm = () => {
+      return false;
+    };
+    spyOn(taskService, 'delete').and.returnValue(of(task.id).pipe(delay(1)));
+    component.deleteTask(task);
+    tick(1);
+    expect(component.tasks).toBeTruthy();
+    expect(taskService.delete).toHaveBeenCalledTimes(0);
+    expect(component.deleteTask).toHaveBeenCalled;
+    window.confirm = jsdomConfirm;
+  }));
+});
