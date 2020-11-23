@@ -26,24 +26,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Mercado</td>
+    <tr *ngFor="let category of categories">
+      <td>{{ category.title }}</td>
       <td class="text-center">
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
+        <a
+          [routerLink]="[category.id, 'edit']"
+          class="btn btn-outline-info btn-sm mr-2"
           >Editar</a
         >
-        <a onClick="alert('excluir')" class="btn btn-outline-danger btn-sm">
-          Excluir
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>Trabalho</td>
-      <td class="text-center">
-        <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2"
-          >Editar</a
+        <a
+          (click)="deleteCategory(category)"
+          class="btn btn-outline-danger btn-sm"
         >
-        <a onClick="alert('excluir')" class="btn btn-outline-danger btn-sm">
           Excluir
         </a>
       </td>
