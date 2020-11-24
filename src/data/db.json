@@ -7,6 +7,14 @@
     {
       "id": 2,
       "title": "Trabalho"
+    },
+    {
+      "id": 3,
+      "title": "Acampamento"
+    },
+    {
+      "id": 4,
+      "title": "Pescaria"
     }
   ],
   "tasks": [
@@ -19,6 +27,26 @@
       "id": 2,
       "listId": 1,
       "title": "Comprar feijão"
+    },
+    {
+      "id": 3,
+      "listId": 1,
+      "title": "Comprar Açúcar"
+    },
+    {
+      "id": 4,
+      "listId": 2,
+      "title": "Implementar boas práticas de otimização de código em projetos Angular"
+    },
+    {
+      "id": 5,
+      "listId": 3,
+      "title": "Comprar Gás"
+    },
+    {
+      "id": 6,
+      "listId": 4,
+      "title": "Comprar anzóis"
     }
   ]
 }

@@ -1,1 +1,46 @@
-<p>reports works!</p>
+<nav class="mb-5">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a routerLink="/">Home</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a routerLink="/reports">Relatórios</a>
+    </li>
+    <li class="breadcrumb-item active">Relatórios</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class="col-md">
+    <h1 class="h2 border-left pl-2">Relatórios</h1>
+  </div>
+</div>
+
+<div class="card-deck mt-5 mb-5">
+  <div class="card text-center text-white bg-success">
+    <a href="/categories" class="text-decoration-none text-reset">
+      <div class="card-header">TOTAL DE CATEGORIAS</div>
+      <div class="card-body">
+        <h3 class="card-title">{{ this.countCategories }}</h3>
+      </div>
+    </a>
+
+    <a routerLink="/categories" class="btn btn-success float-right"
+      >LISTAS DE CATEGORIA</a
+    >
+  </div>
+
+  <div class="card text-center text-white bg-success">
+    <a href="/tasks" class="text-decoration-none text-reset">
+      <div class="card-header">TOTAL DE TAREFAS</div>
+      <div class="card-body">
+        <h3 class="card-title">{{ this.countTasks }}</h3>
+      </div>
+    </a>
+    <a routerLink="/tasks" class="btn btn-success float-right"
+      >LISTAS DE TAREFAS</a
+    >
+  </div>
+</div>
+
+<hr />
