@@ -2,7 +2,38 @@
 
 This is a project that aims to demonstrate the functioning of a CRUD Master / Detail using Angular.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1 and Node.js 14.x, using a JSON Server as development backend.
+
+## Screenshots
+
+### Home Page / Report Page
+
+![home_page](src/assets/snapshots/reports.png?raw=true)
+
+### Categoriy List
+
+![category_list](src/assets/snapshots/category-list.png?raw=true)
+
+### New Categoriy
+
+![new_category](src/assets/snapshots/new-category.png?raw=true)
+
+### Task List
+
+![task_list](src/assets/snapshots/task-list.png?raw=true)
+
+### New Task
+
+![new_task](src/assets/snapshots/new-task.png?raw=true)
+
+## Backend server
+
+Run `npm run backend` for a backend with JSON Server before start application. Navigate to `http://localhost:3000/`.
+
+### Resources:
+
+- Categories List: [http://localhost:3000/tasks]
+- Task List: [http://localhost:3000/lists]
 
 ## Development server
 
@@ -18,12 +49,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Jest](https://jestjs.io/).
 
-## Running end-to-end tests
+## TODO:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- remove duplicate code;
+- increase code coverage;
+- include endpoint configuration in configuration file;
