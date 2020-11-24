@@ -16,6 +16,8 @@ import { Task } from '../shared/task.model';
 import { TaskService } from '../shared/task.service';
 import { switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from '../../categories/shared/category.model';
+import { CategoryService } from '../../categories/shared/category.service';
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
@@ -28,19 +30,22 @@ export class TaskFormComponent implements OnInit, AfterContentChecked {
   serverErrorMessages: string[] = [];
   isSubmittingForm: boolean = false;
   task: Task = new Task();
+  categories: Array<Category>;
 
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
     this.setCurrentAction();
     this.buildTaskForm();
     this.loadTask();
+    this.loadCategories();
   }
 
   ngAfterContentChecked() {
@@ -49,6 +54,7 @@ export class TaskFormComponent implements OnInit, AfterContentChecked {
 
   submitForm() {
     this.isSubmittingForm = true;
+    console.log('CURRENT-ACTION:', this.currentAction);
     if (this.currentAction == 'new') {
       this.createTask();
     } else {
@@ -67,6 +73,7 @@ export class TaskFormComponent implements OnInit, AfterContentChecked {
   private buildTaskForm() {
     this.taskForm = this.formBuilder.group({
       id: [null],
+      listId: [null, [Validators.required]],
       title: [null, [Validators.required, Validators.minLength(2)]],
     });
   }
@@ -81,6 +88,7 @@ export class TaskFormComponent implements OnInit, AfterContentChecked {
         )
         .subscribe(
           (task) => {
+            console.log('EDIT-TASK: ', task);
             this.task = task;
             this.taskForm.patchValue(this.task);
           },
@@ -108,6 +116,8 @@ export class TaskFormComponent implements OnInit, AfterContentChecked {
 
   private updateTask() {
     const task: Task = Object.assign(new Task(), this.taskForm.value);
+    console.log('TASK-FORM: ', this.taskForm.value);
+    console.log('TASK: ', task);
     this.taskService.update(task).subscribe(
       (task) => this.actionsForSucess(task),
       (error) => this.actionsForError(error)
@@ -133,5 +143,11 @@ export class TaskFormComponent implements OnInit, AfterContentChecked {
         'Falha na comunicação com o servidor. Por favor teste mais tarde.',
       ];
     }
+  }
+
+  private loadCategories() {
+    this.categoryService
+      .getAll()
+      .subscribe((categories) => (this.categories = categories));
   }
 }

@@ -1,5 +1,7 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
+import { Category } from '../../categories/shared/category.model';
+import { CategoryService } from '../../categories/shared/category.service';
 import { Task } from '../shared/task.model';
 import { TaskService } from '../shared/task.service';
 @Component({
@@ -9,12 +11,26 @@ import { TaskService } from '../shared/task.service';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
-  constructor(private taskService: TaskService) {}
+  categories = new Map();
+
+  constructor(
+    private taskService: TaskService,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit(): void {
+    this.categoryService.getAll().subscribe(
+      (categories) => {
+        categories.forEach((category) =>
+          this.categories.set(category.id, category.title)
+        );
+      },
+      (error) => console.log('erro ao carregar categorias', error)
+    );
+
     this.taskService.getAll().subscribe(
-      (tasks) => (this.tasks = tasks),
-      (error) => console.log('erro ao carregar a tarefa', error)
+      (tasks) => (this.tasks = tasks.sort((a, b) => b.id - a.id)),
+      (error) => console.log('erro ao carregar a lista de tarefas', error)
     );
   }
 

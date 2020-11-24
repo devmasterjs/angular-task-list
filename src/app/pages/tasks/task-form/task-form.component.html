@@ -24,32 +24,35 @@
     <div class="card-header">Informações sobre a Tarefa</div>
     <div class="card-body">
       <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="title">Descrição</label>
-          <input
-            type="text"
+        <div class="form-group col-md-4">
+          <label for="listId">Categoria</label>
+          <select
+            name="listId"
+            id="listId"
             class="form-control"
-            id="title"
-            formControlName="title"
-          />
+            formControlName="listId"
+          >
+            <option *ngFor="let category of categories" [ngValue]="category.id">
+              {{ category.title }}
+            </option>
+          </select>
           <div
             class="text-danger"
             *ngIf="
-              taskForm.get('title')['invalid'] &&
-              taskForm.get('title')['touched']
+              taskForm.get('listId')['invalid'] &&
+              taskForm.get('listId')['touched']
             "
           >
-            <div *ngIf="taskForm.get('title')['errors'].required">
+            <div *ngIf="taskForm.get('listId')['errors'].required">
               Informação obrigatória!
-            </div>
-            <div *ngIf="taskForm.get('title')['errors'].minlength">
-              Deve ter no mínimo 02 carateres!
             </div>
           </div>
         </div>
+      </div>
 
+      <div class="form-row">
         <div class="form-group col-md-12">
-          <label for="title">Categoria</label>
+          <label for="title">Descrição</label>
           <input
             type="text"
             class="form-control"

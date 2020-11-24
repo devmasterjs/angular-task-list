@@ -11,8 +11,6 @@ import { CategoryService } from '../../categories/shared/category.service';
 export class TaskService {
   private apiPath = 'http://localhost:3000/tasks';
 
-  private categoryService: CategoryService;
-
   constructor(private http: HttpClient) {}
 
   public getAll(): Observable<Task[]> {
@@ -22,6 +20,7 @@ export class TaskService {
   }
 
   public getById(id: number): Observable<Task> {
+    console.log('SERVICE-TASK-GET-BY-ID', id);
     const url = `${this.apiPath}/${id}`;
     return this.http
       .get(url)
@@ -35,9 +34,10 @@ export class TaskService {
   }
 
   public update(task: Task): Observable<Task> {
+    console.log('SERVICE-TASK-UPDATE', task);
     const url = `${this.apiPath}/${task.id}`;
     return this.http
-      .put(url, Task)
+      .put(url, task)
       .pipe(catchError(this.handleError), map(this.jsonDataToTask));
   }
 

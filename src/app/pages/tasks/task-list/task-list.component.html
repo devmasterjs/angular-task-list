@@ -20,14 +20,16 @@
   <thead>
     <tr class="bg-primary text-light">
       <th class="w-50">Tarefa</th>
-      <th class="w-25">Categoria</th>
       <th class="w-25 text-center">Ações</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let task of tasks">
-      <td>{{ task.title }}</td>
-      <td>{{ task.listId }}</td>
+      <td>
+        <strong>{{ task.title }}</strong
+        ><br />
+        <small>{{ categories.get(task.listId) }}</small>
+      </td>
       <td class="text-center">
         <a
           [routerLink]="[task.id, 'edit']"
