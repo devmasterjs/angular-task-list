@@ -26,16 +26,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ![new_task](src/assets/snapshots/new-task.png?raw=true)
 
-## Backend server
+## [Backend server](http://localhost:3000)
 
 Run `npm run backend` for a backend with JSON Server before start application. Navigate to `http://localhost:3000/`.
 
 ### Resources:
 
-- Categories List: [http://localhost:3000/tasks]
-- Task List: [http://localhost:3000/lists]
+- [Categories List](http://localhost:3000/tasks)
+- [Task List](http://localhost:3000/lists)
 
-## Development server
+## [Development server](http://localhost:4200/)
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
