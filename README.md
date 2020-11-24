@@ -4,6 +4,11 @@ This is a project that aims to demonstrate the functioning of a CRUD Master / De
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.1 and Node.js 14.x, using a JSON Server as development backend.
 
+## Requiremens:
+
+- Install Node.js 14.x
+- Install Angular-Cli 11.x (npm install -g @angular/cli)
+
 ## Screenshots
 
 ### Home Page / Report Page
